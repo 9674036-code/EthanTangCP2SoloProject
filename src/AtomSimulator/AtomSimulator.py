@@ -24,13 +24,10 @@ while running:
    off=0
    i=0
    for aData in gen:
-       if atoms[0].Nucleus.protons+atoms[0].Nucleus.neutrons<i:
+       if atoms[0].nucleus.protons+atoms[0].nucleus.neutrons<i:
           pygame.draw.circle(screen, aData[0],(aData[1][0]+atoms[0].Nucleus.r*2,aData[1][0]),aData[2])
        else:
           pygame.draw.circle(screen, aData[0],aData[1],aData[2])
    pygame.display.flip()
    clock.tick(60)
 pygame.quit()
-
-
-
