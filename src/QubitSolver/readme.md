@@ -1,3 +1,12 @@
+# Phase II Development Progrss:
+* Finished writing button class
+* Added functions to measure the computational basis for qubits
+* Wrote QuantumCircut, Qubit and QuantumGate class
+* Created structure to intergrate all class except QuantumGate as one system
+* Added functions to display simple quantum circuts (quantum wires) and show all qubits
+* Added and positioned buttons to take the computational basis of the mystery qubit
+
+
 # Phase I Development Progress:
 * Created Main file, Atom, Electron, Nucleus, Button and Molecule classes
 * The Main File is the engine that will run the simulation, the atom class will store information about the atom as well as perform calculations regarding its behavior, the electron and nucleus classes are support classes for the Atom class by dividing the atom into individual units that will store information and perform more specialized calculations, the Button class will provide the buttons for the UI and user interactivity of the simulation and the Molecule class will extend the atom class, stores extra information such as bond angles perform extra calculations, although it is treated like an atom.
