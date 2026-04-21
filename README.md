@@ -3,8 +3,11 @@
 ## Needed Rescources:
 * Insure that pygame and numpy is downloaded
   * Open your terminal
-  * For mac OS, input python3 -m pip install pygame
-  * For Windows, input python -m install pygame
+  * For Mac OS, input python3 -m pip install pygame-ce
+  * For Windows, input python -m install pygame-ce
+  * If pygame is already installed, but it is not pygame-ce, then you will need to unistall pygame and install pygame-ce
+     * Mac OS: pip3 uninstall pygame
+     * Windows: pip unistall pygame
   * For mac OS, input pip3 install numpy
   * For Windows, input -m pip install numpy
 * If pygame and numpy is installed, then the application should be ready to be ran from either your terminal or an IDE of your choice
