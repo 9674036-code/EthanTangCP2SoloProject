@@ -1,36 +1,36 @@
-
-from matplotlib import text
-
 from Qubit import Qubit
 import numpy as np
 import pygame
 pygame.init()
 
-
 class QuantumCircut:
-    levels = {1: [np.array([1, 0])], 2: [np.array([1,0]), np.array([0,1]),np.array([1,0])]}
+   levels = {1: [np.array([1, 0])], 2: [np.array([1,0]), np.array([0,1]),np.array([1,0])]}
 
-    def __init__(self, level):
-        self.level = level
-        self.qubits = []
-        for i in QuantumCircut.levels[level]:
-            self.qubits.append(Qubit(i))
 
-    def update(self, level):
-        self.level = level
-        self.qubits = []
-        for i in QuantumCircut.levels[level]:
-            self.qubits.append(Qubit(i))
+   def __init__(self, level):
+       self.level = level
+       self.qubits = []
+       for i in QuantumCircut.levels[level]:
+           self.qubits.append(Qubit(i))
 
-    def display(self, surface, font):
-        t = 550//(len(QuantumCircut.levels[self.level])+1)
-        for i in range(1, len(QuantumCircut.levels[self.level])+1):
-            pygame.draw.line(surface, (100, 23, 23), (200, i*t), (930, i*t), 5)
-            if i==1:
-                text = font.render(f"|\u03C8>", True, (255, 255, 255))
-            else:
-                text = font.render(f"|{(self.qubits[i-1].state[0])^1}>", True, (255, 255, 255))
-            surface.blit(text, (150, i*t-20))
 
-    def compBasis(self):
-        return self.qubits[0].compBasis()
+   def update(self, level):
+       self.level = level
+       self.qubits = []
+       for i in QuantumCircut.levels[level]:
+           self.qubits.append(Qubit(i))
+
+
+   def display(self, surface, font):
+       t = 550//(len(QuantumCircut.levels[self.level])+1)
+       for i in range(1, len(QuantumCircut.levels[self.level])+1):
+           pygame.draw.line(surface, (100, 23, 23), (200, i*t), (930, i*t), 5)
+           if i==1:
+               text = font.render(f"|\u03C8>", True, (255, 255, 255))
+           else:
+               text = font.render(f"|{(self.qubits[i-1].state[0])^1}>", True, (255, 255, 255))
+           surface.blit(text, (150, i*t-20))
+
+
+   def compBasis(self):
+       return self.qubits[0].compBasis()
