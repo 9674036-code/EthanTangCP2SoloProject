@@ -1,4 +1,9 @@
-# Phase II Development Progrss:
+# Phase III Development Progress:
+* Reworked UI design
+* Created start, playing and save screen that shows when the application is closed
+* logic for drawing hitboxes implemented
+
+# Phase II Development Progress:
 * Finished writing button class
 * Added functions to measure the computational basis for qubits
 * Wrote QuantumCircut, Qubit and QuantumGate class
