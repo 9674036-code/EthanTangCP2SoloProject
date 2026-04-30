@@ -51,6 +51,8 @@ def reDis(isComp=False):
    for i in gates:
        for i2 in gates[i]:
         pygame.draw.rect(screen, (230,230,230),(i2[0],i2[1],30,30),0,10)
+        gText=font.render(f"{i2[2]}",True,(0,0,0))
+        screen.blit(gText,(i2[0]+8,i2[1]+2))
 
 def selectCheck(val, index):
    global current
@@ -130,7 +132,7 @@ while running:
                            gates=[]
                        elif buttons[i].val == "Delete":
                            try:
-                               del gates[len(gates)-1]
+                               del(gates[next(reversed(gates))][-1])
                                reDis()
                            except:
                                print("No gates to delete")
@@ -146,29 +148,41 @@ while running:
                     if hitB[i].over and current in QuantumGate.gates:
                         if hitB[i].toggle==False:
                             x,y=pygame.mouse.get_pos()
-                        try:
+                        if i+1 in gates:
                             if gates[i+1][len(gates)-1][0]<x+40:
                                 qCircut.addGate(current, i)
-                                gates.setdefault(i+1,[(x,hitB[i].y+15)])
+                                gates.setdefault(i+1,[]).append((x,hitB[i].y+15,current))
                                 pygame.draw.rect(screen, (230, 230, 230),
                                     (x, hitB[i].y+15, 30, 30), 0, 10)
-                        except:
+                                gText=font.render(f"{current}",True,(0,0,0))
+                                screen.blit(gText,(x+8,hitB[i].y+17))
+                        else:
                             qCircut.addGate(current, i)
-                            gates.setdefault(i+1,[(x,hitB[i].y+15)])
+                            gates.setdefault(i+1,[(x,hitB[i].y+15,current)])
                             pygame.draw.rect(screen, (230, 230, 230),
                                     (x, hitB[i].y+15, 30, 30), 0, 10)
+                            gText=font.render(f"{current}",True,(0,0,0))
+                            screen.blit(gText,(x+8,hitB[i].y+17))
 
        for i in buttons:
            i.hover()
            i.display(screen, font, False)
-       for i in hitB:
-           if i.hover():
+       for i in range(len(hitB)):
+           if hitB[i].hover():
+               x,y=pygame.mouse.get_pos()
                if current in QuantumGate.gates:
-                   x,y=pygame.mouse.get_pos()
-                   pygame.draw.rect(screen, (230, 230, 230),
-                                   (x, i.y+15, 30, 30), 0, 10)
-                   print(True)
-           elif i.hover()==False:
+                    if i+1 in gates:
+                        if gates[i+1][len(gates)-1][0]<x-40:
+                            pygame.draw.rect(screen, (230, 230, 230),
+                                (x, hitB[i].y+15, 30, 30), 0, 10)
+                            gText=font.render(f"{current}",True,(0,0,0))
+                            screen.blit(gText,(x+8,hitB[i].y+17))
+                    else:
+                        pygame.draw.rect(screen, (230, 230, 230),
+                                    (x, hitB[i].y+15, 30, 30), 0, 10)
+                        gText=font.render(f"{current}",True,(0,0,0))
+                        screen.blit(gText,(x+8,hitB[i].y+17))
+           elif hitB[i].hover()==False:
                reDis()
    elif mode == "e":
        for event in pygame.event.get():
