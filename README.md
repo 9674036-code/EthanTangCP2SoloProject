@@ -1,5 +1,5 @@
 # EthanTangCP2SoloProject
-# Atom Simulator
+# Qubit Solver
 ## Needed Rescources:
 * Insure that pygame and numpy is downloaded
   * Open your terminal
