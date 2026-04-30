@@ -4,4 +4,4 @@ class Qubit:
      self.state = state
 
  def compBasis(self):
-     return f"{np.random.choice([0, 1], p=[self.state[0],self.state[1]])}"
+     return f"0: {100*self.state[0]}% 1: {100*self.state[0]}%"
