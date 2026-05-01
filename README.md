@@ -8,7 +8,7 @@ $$
 \huge M = 2^{(q \cdot 2)} \cdot 16
 $$
 
-### in which q is the number of qubits in the stage and M is the memory required. At 20 qubits, the memory needed will exeed 16 terabytes. If the user plans to modify any of the stages in the application or create custom stages of their own, please keep this in mind.
+### in which q is the number of qubits in the stage and M is the memory required in bytes. At 20 qubits, the memory needed will exeed 16 terabytes. If the user plans to modify any of the stages in the application or create custom stages of their own, please keep this in mind.
 
 ## Needed Rescources:
 * Insure that pygame and numpy is downloaded
