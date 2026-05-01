@@ -1,8 +1,8 @@
 # EthanTangCP2SoloProject
 # Qubit Solver
 
-## Warning:
-In the case that the user decides to alter any files, beware that adding a stage with 14 or more qubits in the levels dictionary of the QuantumCircut will cause the cause the program to attempt to allocate more that 4 gigabytes of memory and put your machine in potential danger. After 14 qubits, the memory required will scale exponetially, with the memory needed calculated as: $` 2^(q*2)*16 `$ in which q is the number of qubits in the stage, and at 20 qubits, the memory needed will exeed 16 terabytes. If the user plans to modify any of the stages in the application or create custom stages of their own, please keep this in mind.
+# Warning:
+In the case that the user decides to alter any files, beware that adding a stage with 14 or more qubits in the "levels" dictionary of the QuantumCircut will cause the cause the program to attempt to allocate more that 4 gigabytes of memory and put your machine in potential danger. After 14 qubits, the memory required will scale exponetially, with the memory needed calculated as: $` 2^(q*2)*16 `$ in which q is the number of qubits in the stage, and at 20 qubits, the memory needed will exeed 16 terabytes. If the user plans to modify any of the stages in the application or create custom stages of their own, please keep this in mind.
 
 ## Needed Rescources:
 * Insure that pygame and numpy is downloaded
