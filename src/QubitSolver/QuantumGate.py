@@ -6,15 +6,22 @@ class QuantumGate:
      [0, 1],
      [1, 0]]),
      'H': np.array([
-     [1, 1],
-     [1, -1]])
-     *(1/np.sqrt(2)),
+         [1/np.sqrt(2), 1/np.sqrt(2)],
+         [1/np.sqrt(2), -1/np.sqrt(2)]]),
      'CNOT': np.array([
      [1, 0, 0, 0],
      [0, 1, 0, 0],
      [0, 0, 0, 1],
      [0, 0, 1, 0]
- ])
+ ]),
+     'Y': np.array([
+         [0, -1j],
+         [1j, 0]
+     ]),
+     'Z': np.array([
+         [1, 0],
+         [0, -1]
+     ])
  }
  I=np.array([[1,0],[0,1]])
  def __init__(self, type, qubits):
@@ -30,5 +37,4 @@ class QuantumGate:
        else:
            gates.append(QuantumGate.I)
    gate=reduce(np.kron,gates)
-   print(qubit @ gate)
    return qubit @ gate
