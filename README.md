@@ -10,6 +10,12 @@ $$
 
 ### in which q is the number of qubits in the stage and M is the memory required in bytes. At 20 qubits, the memory needed will exeed 16 terabytes. If the user plans to modify any of the stages in the application or create custom stages of their own, please keep this in mind.
 
+## Third-Party Rescources Used:
+* All UI assets where either programically generated in pygame or created in google draw
+* The click sound effect was scourced from [here](https://pixabay.com/sound-effects/film-special-effects-computer-mouse-click-351398/) from pixabay, with the sound produced by "Universfield"
+* The snap sound effect was scourced from [here](https://pixabay.com/sound-effects/film-special-effects-snap-fingers-fx-421174/) from pixabay, with the sound produced by "Mrstokes302"
+* Everything else was created by Ethan Tang
+
 ## Needed Rescources:
 * Insure that pygame and numpy is downloaded
   * Open your terminal
