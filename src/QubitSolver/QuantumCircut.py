@@ -8,7 +8,7 @@ pygame.init()
 
 class QuantumCircut:
    levels = {1: [np.array([1, 0])], 2: [np.array(
-       [0, 1])],3:[np.array([1/np.sqrt(2), 1/np.sqrt(2)])],4:[np.array([1/np.sqrt(2), -1/np.sqrt(2)])]}
+       [0, 1])], 3: [np.array([1/np.sqrt(2), 1/np.sqrt(2)])], 4: [np.array([1/np.sqrt(2), -1/np.sqrt(2)])], 5: [np.array([np.cos(np.pi/12), np.sin(np.pi/12)])]}
 
    def __init__(self, level):
        self.level = level
@@ -44,13 +44,15 @@ class QuantumCircut:
            self.box.append((200, i*t))
 
    def compBasis(self):
-       for i in self.gates:
-        for i2 in self.gates[i]:
-            self.nQSystem = i2.compute(
-               self.nQSystem, len(self.qubits))
-            print(self.nQSystem)
+       self.calculate()
        return self.qubits[0].compBasis(self.nQSystem)
 
    def addGate(self, gate, qNum):
        self.gates.setdefault(qNum, []).append(QuantumGate(gate, qNum))
        self.qubits[qNum].gates.append(gate)
+
+   def calculate(self):
+       for i in self.gates:
+        for i2 in self.gates[i]:
+            self.nQSystem = i2.compute(
+                self.nQSystem, len(self.qubits))
