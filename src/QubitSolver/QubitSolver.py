@@ -8,14 +8,16 @@ import numpy as np
 with open("save.txt", "r") as save:
     qCircut = QuantumCircut(int(save.read().strip()))
 # (val, x, y, w, l, c1, c2)
-buttons = [Button("How To Use", 30, 360, 130, 130, (10, 10, 10), (18, 3, 37)),
-           Button("Start", 800, 360, 130, 130, (10, 10, 10), (18, 3, 37))]
+buttons = [Button("Start", 800, 360, 130, 130, (10, 10, 10), (18, 3, 37))]
 
 
 pygame.init()
+pygame.mixer.init()
+snap = pygame.mixer.Sound("snap.mp3")
+click = pygame.mixer.Sound("click.mp3")
 hitB = []
 gates = {}
-cGate = {"|0>": np.array([1, 0]), "|1>": np.array([0, 1])}
+cGate = {"|0>": np.array([1, 0]), "|1>": np.array([0, 1]),"|+>": np.array([1/np.sqrt(2), 1/np.sqrt(2)]),"|->": np.array([1/np.sqrt(2), -1/np.sqrt(2)]),"R(\u03C0/6)|0>": np.array([np.cos(np.pi/12), np.sin(np.pi/12)])}
 current = ""
 close = 1
 mode = "s"
@@ -35,15 +37,11 @@ for i in buttons:
     i.display(screen, font, False)
 
 
-def reDis(isComp=False):
-   global compBasis
+def reDis():
    screen.blit(backI, (0, 0))
    for i in buttons:
        i.display(screen, font, False)
    qCircut.display(screen, font)
-   if isComp:
-       compBasis = ""
-   current = ""
    for i in gates:
        for i2 in gates[i]:
         pygame.draw.rect(screen, (45, 20, 65),
@@ -79,6 +77,7 @@ while running:
                    i.hover()
                    i.display(screen, font, True)
                    if i.over == True:
+                       click.play()
                        if i.val == "How To Use":
                            reDis()
                        elif i.val == "Start":
@@ -91,16 +90,22 @@ while running:
                                               (10, 10, 10), (18, 3, 37)),
                                        Button("Z", 440, 630, 90, 80,
                                               (10, 10, 10), (18, 3, 37)),
-                                       Button("Measure", 10, 10, 130, 80,
+                                       Button("Measure", 10, 5, 130, 80,
                                               (10, 10, 10), (18, 3, 37)),
-                                       Button("New", 10, 100, 130, 80,
+                                       Button("New", 10, 90, 130, 80,
                                               (10, 10, 10), (18, 3, 37)),
-                                       Button("Delete", 10, 190, 130, 80,
+                                       Button("Delete", 10, 175, 130, 80,
                                               (10, 10, 10), (18, 3, 37)),
-                                       Button("|0>", 30, 290, 90, 80,
+                                      Button("R(\u03C0/6)|0>", 10, 260, 130, 80,
                                               (10, 10, 10), (18, 3, 37)),
-                                       Button("|1>", 30, 380, 90, 80,
-                                              (10, 10, 10), (18, 3, 37)),]
+                                       Button("|1>", 30, 345, 90, 80,
+                                              (10, 10, 10), (18, 3, 37)),
+                                       Button("|0>", 30, 430, 90, 80,
+                                             (10, 10, 10), (18, 3, 37)),
+                                       Button("|+>", 30, 515, 90, 80,
+                                             (10, 10, 10), (18, 3, 37)),
+                                        Button("|->", 30, 600, 90, 80,
+                                             (10, 10, 10), (18, 3, 37))]
                            mode = "p"
                            reDis()
                            hitB = updateHit()
@@ -117,6 +122,7 @@ while running:
            if event.type == pygame.MOUSEBUTTONDOWN:
                for i in range(len(buttons)):
                    if buttons[i].over:
+                       click.play()
                        if buttons[i].val == "Measure":
                            compBasis = qCircut.compBasis()
                            compText = font.render(
@@ -129,7 +135,7 @@ while running:
                        elif buttons[i].val == "New":
                            gates = {}
                            qCircut = QuantumCircut(1)
-                           reDis(True)
+                           reDis()
                            hitB = updateHit()
                        elif buttons[i].val == "Delete":
                            try:
@@ -137,20 +143,28 @@ while running:
                                reDis()
                                if gates[next(reversed(gates))] == []:
                                    del (gates[next(reversed(gates))])
+                               qCircut.calculate()
                            except:
                                print("No gates to delete")
                        elif "|" in buttons[i].val:
                         if np.array_equal(cGate[buttons[i].val], qCircut.qubits[0].state) and qCircut.level+1 in QuantumCircut.levels:
                            gates = {}
                            qCircut = QuantumCircut(qCircut.level+1)
-                           reDis(True)
+                           reDis()
                            hitB = updateHit()
+                           text = font.render("Correct", True, (103, 146, 103))
+                           screen.blit(text, (420, 20))
+                        elif np.array_equal(cGate[buttons[i].val], qCircut.qubits[0].state)== False:
+                            reDis()
+                            text = font.render("Incorrect", True, (149, 6, 6))
+                            screen.blit(text, (420, 20))
                         else:
                             mode = "f"
                             with open("save.txt", "w") as save:
                                 save.write(str(1))
                for i in range(len(hitB)):
                    if hitB[i].over and current in QuantumGate.gates:
+                        snap.play()
                         if hitB[i].toggle == False:
                             x, y = pygame.mouse.get_pos()
                         if i+1 in gates:
